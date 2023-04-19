@@ -8,11 +8,12 @@ import (
 )
 
 func main() {
-	//readFile()
-	writeFile()
+	fileName := "data.txt"
+	//readFile(fileName)
+	writeFile(fileName)
 }
 
-func writeFile() {
+func writeFile(fileName string) {
 	// If file exist, truncate the content, else create a file
 	//f, err := os.Create("data.txt")
 	//defer f.Close()
@@ -22,7 +23,7 @@ func writeFile() {
 	//f.WriteString("Hi enigmanians")
 
 	// Create file if not exist, else append the string
-	f, err := os.OpenFile("data.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
+	f, err := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 
 	if err != nil {
 		log.Fatal(err)
@@ -31,8 +32,8 @@ func writeFile() {
 	f.WriteString("Hah 2\n")
 }
 
-func readFile() {
-	//file, err := os.Open("hello.txt")
+func readFile(fileName string) {
+	//file, err := os.Open(fileName)
 	//defer file.Close()
 	//if err != nil {
 	//	log.Fatal(err)
@@ -52,7 +53,7 @@ func readFile() {
 	//fmt.Printf("%s", string(readBuffer))
 	//
 	//// Alternative using ioutil
-	//content, err := ioutil.ReadFile("hello.txt")
+	//content, err := ioutil.ReadFile(fileName)
 	//if err != nil {
 	//	log.Fatal(err)
 	//}
@@ -60,7 +61,7 @@ func readFile() {
 	//fmt.Println(string(content))
 
 	// Read line by line
-	f, err := os.Open("hello.txt")
+	f, err := os.Open(fileName)
 	defer f.Close()
 	if err != nil {
 		log.Fatal(err)
