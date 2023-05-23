@@ -9,8 +9,8 @@ import (
 
 func main() {
 	fileName := "data.txt"
-	//readFile(fileName)
-	writeFile(fileName)
+	readFile(fileName)
+	//writeFile(fileName)
 }
 
 func writeFile(fileName string) {
@@ -33,6 +33,8 @@ func writeFile(fileName string) {
 }
 
 func readFile(fileName string) {
+	// Manual way to read a file,
+	//it is developer's responsibility to close the file
 	//file, err := os.Open(fileName)
 	//defer file.Close()
 	//if err != nil {
@@ -52,7 +54,7 @@ func readFile(fileName string) {
 	//}
 	//fmt.Printf("%s", string(readBuffer))
 	//
-	//// Alternative using ioutil
+	//// Alternative using ioutil (deprecated already)
 	//content, err := ioutil.ReadFile(fileName)
 	//if err != nil {
 	//	log.Fatal(err)
@@ -60,7 +62,17 @@ func readFile(fileName string) {
 	//
 	//fmt.Println(string(content))
 
-	// Read line by line
+	// Go provide built in package to simplify read a file
+	// 1. Read all file content, be careful when the size of file too big
+	// because it will store the content in memory
+	content, err := os.ReadFile(fileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	strContent := string(content)
+	fmt.Println("Read content:", strContent)
+
+	// 2. Read line by line
 	f, err := os.Open(fileName)
 	defer f.Close()
 	if err != nil {
